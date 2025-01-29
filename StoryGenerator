@@ -1,149 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silly Story Generator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silly Story Generator</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+      background-color: #ced1d4;
+    }
+    h1 {
+      color: #333;
+    }
+    #story {
+      margin: 20px auto;
+      padding: 15px;
+      width: 80%;
+      max-width: 600px;
+      background-color: #fffae6;
+      border: 2px dashed #e76e35;
+      border-radius: 9px;
+      font-size: 18px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ffa500;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff8c00;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 200px;
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <h1>Silly Story Generator</h1>
-        <p>Make your day brighter with wacky stories!</p>
-    </header>
+  <h1>Silly Story Generator</h1>
+  <p>Enter a name (optional) and click the button to generate a random silly story!</p>
+  <input type="text" id="nameInput" placeholder="Enter a name...">
+  <div id="story">Your silly story will appear here!</div>
+  <button onclick="generateStory()">Generate Story</button>
 
-    <main class="main-content">
-        <form id="story-form">
-            <label for="name">Enter a name:</label>
-            <input type="text" id="name" placeholder="e.g., Bob" required>
+  <script>
+    const characters = ['a talking banana', 'a sleepy dragon', 'a dancing robot', 'a mischievous cat', 'a clumsy wizard'];
+    const actions = ['won a dance competition', 'ate 100 pancakes', 'invented a flying car', 'fell into a mud puddle', 'tried to juggle flamingos'];
+    const locations = ['on the moon', 'in a magical forest', 'at the bottom of the ocean', 'inside a volcano', 'at a spooky haunted house'];
 
-            <label for="place">Enter a place:</label>
-            <input type="text" id="place" placeholder="e.g., Mars" required>
+    function getRandomElement(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
 
-            <label for="object">enter an object:</label>
-            <input type="text" id="object" placeholder="e.g., A banana" required>
-
-            <button type="submit">GenerateStory</button>
-        </form>
-
-        <section id="story-output" class="story-output"></section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2024 Silly Story Generator. Have fun!Be fun!</p>
-    </footer>
-
-    <script src="script.js"></script>
+    function generateStory() {
+      const nameInput = document.getElementById("nameInput").value.trim();
+      const name = nameInput || "Ashiq"; 
+      const character = getRandomElement(characters);
+      const action = getRandomElement(actions);
+      const location = getRandomElement(locations);
+      document.getElementById("story").innerText = `${name} met ${character} who ${action} ${location}!`;
+    }
+  </script>
 </body>
 </html>
 
-           CSS
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
 
-body {
-    background-color: #f0f8ff;
-    color: #333;
-    text-align: center;
-    line-height: 1.6;
-    padding: 20px;
-}
-
-.header {
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    font-size: 2.6rem;
-    color: #ff6347;
-}
-
-.main-content {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-form label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form button {
-    padding: 10px 15px;
-    background-color: #ff6347;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #ff4500;
-}
-
-.story-output {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    font-style: italic;
-    color: #555;
-}
-
-.footer {
-    margin-top: 20px;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-// Array of story templates
-const storyTemplates = [
-    "Once upon a time, {name} went to {place} carrying a {object}. It was the beginning of a very strange day.",
-    "In a bizarre turn of events, {name} found a {object} in {place} that turned out to be magical.",
-    "{name} decided to visit {place} with a {object}. Little did they know, it would cause chaos everywhere!",
-    "While exploring {place}, {name} stumbled upon a {object} that could talk. What a surprise!",
-    "One fine day, {name} threw a {object} across {place} and accidentally started a world-wide trend.",
-];
-
-// Function to generate a random story
-function generateStory(name, place, object) {
-    const randomIndex = Math.floor(Math.random() * storyTemplates.length);
-    const story = storyTemplates[randomIndex]
-        .replace("{name}", name)
-        .replace("{place}", place)
-        .replace("{object}", object);
-    return story;
-}
-
-// Event listener for the form
-document.getElementById("story-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const place = document.getElementById("place").value;
-    const object = document.getElementById("object").value;
-
-    const story = generateStory(name, place, object);
-
-    const storyOutput = document.getElementById("story-output");
-    storyOutput.textContent = story;
-});
